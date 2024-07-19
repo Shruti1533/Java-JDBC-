@@ -5,12 +5,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class FirstScreen {
-    private static JTextField usernameField;
-    private static JPasswordField passwordField;
     private static Image backgroundImage;
 
     public static void create() {
-
         // Load the background image
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\DELL\\IdeaProjects\\JDBC Practice\\src\\welcome.png"));
@@ -30,41 +27,19 @@ public class FirstScreen {
         int width = (int) (screenSize.width * 0.8);
         int height = (int) (screenSize.height * 0.8);
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameField = new JTextField(20);
-        // Password
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordField = new JPasswordField(20);
-
-        // Set label properties
-        usernameLabel.setForeground(Color.WHITE);
-        passwordLabel.setForeground(Color.WHITE);
-        Font labelFont = new Font("Arial", Font.BOLD, 16);
-        usernameLabel.setFont(labelFont);
-        passwordLabel.setFont(labelFont);
-
         // Buttons
         JButton signInButton = new JButton("Sign In");
         JButton signUpButton = new JButton("Sign Up");
 
+        // Add action listeners
+        signInButton.addActionListener(e -> openFrame("Sign In"));
+        signUpButton.addActionListener(e -> openFrame("Sign Up"));
+
+        // Add components to main panel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        mainPanel.add(usernameLabel, gbc);
-
-        gbc.gridx = 1;
-        mainPanel.add(usernameField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        mainPanel.add(passwordLabel, gbc);
-
-        gbc.gridx = 1;
-        mainPanel.add(passwordField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
         mainPanel.add(signInButton, gbc);
 
         gbc.gridx = 1;
@@ -78,6 +53,56 @@ public class FirstScreen {
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    private static void openFrame(String action) {
+        JFrame newFrame = new JFrame(action);
+        newFrame.setSize(400, 300);
+        newFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        newFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(Color.LIGHT_GRAY);
+
+        JLabel usernameLabel = new JLabel("Username:");
+        JLabel passwordLabel = new JLabel("Password:");
+
+        // Set label properties
+        usernameLabel.setForeground(Color.BLACK);
+        passwordLabel.setForeground(Color.BLACK);
+        Font labelFont = new Font("Arial", Font.BOLD, 16);
+        usernameLabel.setFont(labelFont);
+        passwordLabel.setFont(labelFont);
+
+        JTextField usernameField = new JTextField(20);
+        JPasswordField passwordField = new JPasswordField(20);
+
+        JButton actionButton = new JButton(action);
+
+        // Add components to panel
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(usernameLabel, gbc);
+
+        gbc.gridx = 1;
+        panel.add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(passwordLabel, gbc);
+
+        gbc.gridx = 1;
+        panel.add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        panel.add(actionButton, gbc);
+
+        newFrame.add(panel);
+        newFrame.setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -94,3 +119,6 @@ public class FirstScreen {
         }
     }
 }
+
+
+
